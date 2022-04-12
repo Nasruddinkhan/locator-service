@@ -1,0 +1,76 @@
+{
+  "Data": [
+    {
+      "Brand": [
+        {
+          "BrandName": "The Saudi Investment Bank",
+          "ATM": [
+            {
+              "Identification": "AB461881",
+              "SupportedLanguages": [
+                "en",
+                "ar"
+              ],
+              "ATMServices": [
+                "CashWithdrawal",
+                "CashDeposit",
+                "CoinDeposit",
+                "PINChange",
+                "MobilePhoneTopUp",
+                "Balance",
+                "MiniStatement",
+                "CharityDonation"
+              ],
+              "CardServices": [
+                "SAIBMadaCardPrinting",
+                "SAIBTravelCardPrinting",
+                "SAIBShoppingCardPrinting",
+                "SAIBCreditCardPrinting",
+                "AcceptSAIBMadaCard",
+                "AcceptNonSAIBMadaCard",
+                "AcceptSAIBVisaCard",
+                "AcceptNonSAIBVisaCard",
+                "AcceptSAIBTravelCard",
+                "AcceptSAIBShoppingCard",
+                "AcceptNonSAIBMasterCard",
+                "AcceptAmexCard"
+              ],
+              "Accessibility": [
+                "SupportForBlind",
+                "SupportForPhysicallyChallanged",
+                "WheelChairAccess"
+              ],
+              "Access24HoursIndicator": "True",
+              "SupportedCurrencies": [
+                "SAR"
+              ],
+              "MinimumPossibleAmount": "5",
+              "Branch": {
+                "Identification": "402529"
+              },
+              "Location": {
+                "Site": {
+                  "Name": "Riyadh Park"
+                },
+                "PostalAddress": {
+                  "AddressLine": "",
+                  "BuildingNumber": "",
+                  "StreetName": "63 Bath Street",
+                  "City": "Riaydh",
+                  "Country": "SA",
+                  "PostCode": "2586",
+                  "GeoLocation": {
+                    "GeographicCoordinates": {
+                      "Latitude": "52.9740105",
+                      "Longitude": "-1.3090999"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

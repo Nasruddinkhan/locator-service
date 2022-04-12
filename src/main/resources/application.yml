@@ -1,0 +1,5 @@
+server:
+  port: 9010
+resources:
+  atmsfilename: atm.json
+  branchfilename: branches.json

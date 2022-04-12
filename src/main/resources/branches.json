@@ -1,0 +1,117 @@
+{
+  "Data": [
+    {
+      "Brand": [
+        {
+          "BrandName": "The Saudi Investment Bank",
+          "Branch": [
+            {
+              "Identification": "77720400",
+              "SequenceNumber": "00",
+              "Name": "Head office",
+              "Type": "Physical",
+              "CustomerSegment": [
+                "Personal",
+                "Business"
+              ],
+              "Accessibility": [
+                "SupportForBlind",
+                "SupportForPhysicallyChallanged",
+                "WheelchairAccess"
+              ],
+              "ServiceAndFacility": [
+                "ATMAtBranch",
+                "SafeCustody",
+                "AcceptCoins",
+                "KIOSKSAtBranch",
+                "AcceptFX"
+              ],
+              "Availability": {
+                "StandardAvailability": {
+                  "Day": [
+                    {
+                      "Name": "Sunday",
+                      "OpeningHours": [
+                        {
+                          "OpeningTime": "09:30:00+0000",
+                          "ClosingTime": "16:30:00+0000"
+                        }
+                      ]
+                    },
+                    {
+                      "Name": "Monday",
+                      "OpeningHours": [
+                        {
+                          "OpeningTime": "09:30:00+0000",
+                          "ClosingTime": "16:30:00+0000"
+                        }
+                      ]
+                    },
+                    {
+                      "Name": "Tuesday",
+                      "OpeningHours": [
+                        {
+                          "OpeningTime": "09:30:00+0000",
+                          "ClosingTime": "16:30:00+0000"
+                        }
+                      ]
+                    },
+                    {
+                      "Name": "Wednesday",
+                      "OpeningHours": [
+                        {
+                          "OpeningTime": "09:30:00+0000",
+                          "ClosingTime": "16:30:00+0000"
+                        }
+                      ]
+                    },
+                    {
+                      "Name": "Thursday",
+                      "OpeningHours": [
+                        {
+                          "OpeningTime": "09:30:00+0000",
+                          "ClosingTime": "16:30:00+0000"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "ContactInfo": [
+                {
+                  "ContactType": "Phone",
+                  "ContactContent": "+966-8001248000"
+                },
+                {
+                  "ContactType": "Fax",
+                  "ContactContent": "+966-8001248000"
+                },
+                {
+                  "ContactType": "Email",
+                  "ContactContent": "customersupport.saib.com.sa"
+                }
+              ],
+              "PostalAddress": {
+                "AddressLine": [
+                  "The Saudi Investment Bank Head office, Al-Wizarat"
+                ],
+                "City": "Riyadh",
+                "CountrySubDivision": [
+                  "CentralRegion"
+                ],
+                "Country": "SA",
+                "PostCode": "12622",
+                "GeoLocation": {
+                  "GeographicCoordinates": {
+                    "Latitude": "52.768482",
+                    "Longitude": "-0.37696"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
