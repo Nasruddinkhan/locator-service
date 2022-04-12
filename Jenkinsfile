@@ -26,9 +26,10 @@ pipeline {
         }
         stage('result') {
             steps {
-                input('Do you want capture result....')
-                 junit "**/target/surefire-reports/Test.*.xml"
-                 archive 'target/*.jar'
+                input('Do you want capture result....?')
+//                 junit "**/target/surefire-reports/Test.*.xml"
+                junit 'build/reports/**/*.xml'
+                archive 'target/*.jar'
             }
         }
     }
