@@ -27,7 +27,7 @@ pipeline {
         stage('result') {
             steps {
                 input('Do you want capture result....?')
-                junit "target/surefire-reports/Test.*.xml"
+                junit "target/surefire-reports/**/*.xml"
                 archive 'target/*.jar'
             }
         }
