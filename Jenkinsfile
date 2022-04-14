@@ -35,7 +35,7 @@ pipeline {
       steps {
         echo "Code Quality"
         withSonarQubeEnv("SonarQube") {
-          bat "mvn sonar:sonar"
+          bat "mvn sonar:sonar -Dsonar.login=f547ea1989c34b5b223573728a349730d78e40af"
         }
       }
     }
