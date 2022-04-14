@@ -34,8 +34,8 @@ pipeline {
     stage('Code Quality') {
       steps {
         echo "Code Quality"
-        withSonarQubeEnv("SonarQubeToken") {
-          bat "mvn sonar: sonar"
+        withSonarQubeEnv("SonarQube") {
+          bat "mvn sonar:sonar"
         }
       }
     }
