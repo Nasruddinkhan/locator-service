@@ -16,6 +16,11 @@
     <description>These api are responsible to return the all saudi investment bank</description>
     <properties>
         <java.version>11</java.version>
+        <sonar.sources>src/main/java</sonar.sources>
+        <!--suppress UnresolvedMavenProperty -->
+<!--        <jkube.generator.name>${spring-boot.build-image.imageName}</jkube.generator.name>-->
+        <jkube.skip.tag>true</jkube.skip.tag>
+        <jkube.enricher.jkube-service.type>LoadBalancer</jkube.enricher.jkube-service.type>
     </properties>
     <dependencies>
         <dependency>
@@ -36,6 +41,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.serilogj.serilogj/serilogj -->
+        <!-- https://mvnrepository.com/artifact/org.serilogj.serilogj/serilogj -->
+
+
+
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -68,6 +78,11 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>1.0.2</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -127,7 +142,6 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.9.1.2184</version>
-
             </plugin>
         </plugins>
     </pluginManagement>
