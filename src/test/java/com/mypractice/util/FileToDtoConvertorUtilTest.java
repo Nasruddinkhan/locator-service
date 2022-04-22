@@ -35,14 +35,6 @@ public class FileToDtoConvertorUtilTest {
         Assert.assertEquals(atms, fileData);
     }
 
-    @Test
-    public void getInputStream() throws IOException {
-        var resource = resourceLoader.getResource("classpath:" + "atm.json");
-        System.out.println("resource = " + resource);
-        var inputStream = resource.getInputStream();
-        System.out.println("inputStream = " + inputStream);
-    }
-
 
     @Test
     public void mapObject() {
