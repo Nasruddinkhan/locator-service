@@ -1,6 +1,9 @@
 // Declarative //
 pipeline {
     agent any
+    tools{
+        maven: 'Maven'
+    }
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
 
