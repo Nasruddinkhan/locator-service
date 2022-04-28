@@ -3,13 +3,13 @@ pipeline {
   agent any
 
   parameters{
-     string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com',
-     description: 'Ingress host')
-     string(name: 'NAMESPACE', defaultValue: 'nasruddinkhan786-dev', description:'openshift namespace')
-     string(name: 'DOCKER_REGISTRY', defaultValue:'https://hub.docker.com', description: 'docker registry')
-     booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
-     string(name: 'SONAR', defaultValue:'http://localhost:9000', description: 'SonarQube URLS')
-     string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
+    string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com',
+    description: 'Ingress host')
+    string(name: 'NAMESPACE', defaultValue: 'nasruddinkhan786-dev', description:'openshift namespace')
+    string(name: 'DOCKER_REGISTRY', defaultValue:'https://hub.docker.com', description: 'docker registry')
+    booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
+    string(name: 'SONAR', defaultValue:'http://localhost:9000', description: 'SonarQube URLS')
+    string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
   }
   environment {
     EMAIL_RECIPIENTS = 'nasruddinkhan44@gmaiil.com'
