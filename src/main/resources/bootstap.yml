@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    kubernets:
+      config:
+        name: generic-config

@@ -1,5 +1,67 @@
 server:
   port: 9010
+  servlet:
+    context-path: /locator-service/api/v1
 resources:
   atmsfilename: atm.json
   branchfilename: branches.json
+
+logging:
+  file:
+    name: /var/log/${spring.application.name}
+  level:
+    com:
+      mypractice: INFO
+
+
+
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  application:
+    name: @artifactId@
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    kubernets:
+      enabled: false
+      config:
+        enabled: false
+        enable-api: false
+      secrets:
+        enabled: false
+        enable-api: false
+  logging:
+    level:
+      org:
+        springframework:
+          web: INFO
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics,prometheusm,refresh
+  endpoint:
+    info:
+      enabled: true
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+    refresh:
+      enabled: true
+    health:
+      enabled: true
+  metrics:
+    tags:
+      instance: dev
+      application: locator-service
+    export:
+      prometheus:
+        enabled: true
