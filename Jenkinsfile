@@ -30,7 +30,20 @@ pipeline {
         stage('Package stage') {
             steps {
                 echo 'Package....'
-                bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+                bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${params.SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+            }
+        }
+        stage('SonarQube') {
+            steps {
+                echo "Code Quality"
+                withSonarQubeEnv("SonarQube") {
+                    echo "Code Quality SonarQube"
+                    if(params.SKIP_TESTS){
+                        echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
+                    }else{
+                        bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+                    }
+                }
             }
         }
     }
