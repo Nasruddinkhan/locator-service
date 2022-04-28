@@ -14,7 +14,6 @@ pipeline {
         skipStagesAfterUnstable()
         disableConcurrentBuilds()
     }
-
     stages {
         stage('Clean') {
             steps {
