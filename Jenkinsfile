@@ -6,7 +6,7 @@ pipeline {
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
         choice(name: 'NAMESPACE', choices: ['nasruddinkhan786-dev'], description:'openshift namespace')
-        choice(name: 'DOCKER_REGISTRY', choices:['https://hub.docker.com/', description: 'docker registry'])
+        choice(name: 'DOCKER_REGISTRY', choices:['https://hub.docker.com'], description: 'docker registry')
         choice(name: 'SONAR', choices:['http://localhost:9000'], description: 'SonarQube URLS')
         string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
     }
