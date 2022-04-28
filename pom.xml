@@ -33,7 +33,7 @@
         <sonar.jacoco.reportsPaths>target/jacoco-output/merged.exec</sonar.jacoco.reportsPaths>
         <jkube.namespace>dev</jkube.namespace>
         <jkube.build.switchToDeployment>true</jkube.build.switchToDeployment>
-        <spring-boot.build-image.imageName>${docker.registry}/${jkube.namespace}/${project.artifactId}:${project.version}</spring-boot.build-image.imageName>
+        <spring-boot.build-image.imageName>${docker.registry}/${project.artifactId}:${project.version}</spring-boot.build-image.imageName>
         <jkube.generator.name>${spring-boot.build-image.imageName}</jkube.generator.name>
     </properties>
     <dependencies>
