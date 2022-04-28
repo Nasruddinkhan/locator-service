@@ -1,70 +1,102 @@
 // Declarative //
 pipeline {
-  agent any
+    agent any
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
 
-  parameters{
-    string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com',
-    description: 'Ingress host')
-    string(name: 'NAMESPACE', defaultValue: 'nasruddinkhan786-dev', description:'openshift namespace')
-    string(name: 'DOCKER_REGISTRY', defaultValue:'https://hub.docker.com', description: 'docker registry')
-    booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
-    string(name: 'SONAR', defaultValue:'http://localhost:9000', description: 'SonarQube URLS')
-    string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
-  }
-  environment {
-    EMAIL_RECIPIENTS = 'nasruddinkhan44@gmaiil.com'
-  }
-  options {
-    skipStagesAfterUnstable()
-    disableConcurrentBuilds()
-  }
-  stages {
-    stage('Clean') {
-      steps {
-        echo 'Clean..'
-        bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
-      }
-    }
-    stage('Unit Test') {
-      steps {
-        echo 'Testing..'
-        bat "mvn test -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
 
-      }
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
-    stage('Package stage') {
-      steps {
-        echo 'Deploying....'
-        bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
-      }
-    }
-//     stage('result') {
-//       steps {
-//         input('Do you want capture result....?')
-//         junit "target/surefire-reports/**/*.xml"
-//         archive 'target/*.jar'
-//       }
-//     }
-    stage('SonarQube') {
-      steps {
-        echo "Code Quality"
-         if(params.SKIP_TESTS){
-            echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
-         }else{
-         withSonarQubeEnv("SonarQube") {
-            bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
-          }
-         }
+    stages {
+        stage('Example') {
+            steps {
+                echo "Hello ${params.PERSON}"
+
+                echo "Biography: ${params.BIOGRAPHY}"
+
+                echo "Toggle: ${params.TOGGLE}"
+
+                echo "Choice: ${params.CHOICE}"
+
+                echo "Password: ${params.PASSWORD}"
+            }
         }
     }
-  stage('Docker Build') {
-      agent any
-      steps {
-        def imageName = bat script: 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}', returnStdout: true
-        echo 'docker image cmd ${imageName}'
-        bat 'docker build -t ${imageName} .'
-       // bat 'docker build -t nasruddin/locator-service:latest .'
-      }
-    }
-  }
 }
+// pipeline {
+//   agent any
+//   tools{
+//     maven: 'Maven'
+//   }
+//   parameters{
+//      string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com',
+//      description: 'Ingress host')
+//      choice(name: 'NAMESPACE', choice: ['nasruddinkhan786-dev'], description:'openshift namespace')
+//      choice(name: 'DOCKER_REGISTRY', choice:['https://hub.docker.com/', description: 'docker registry'])
+//      booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
+//      choice(name: 'SONAR', choice:['http://localhost:9000'], description: 'SonarQube URLS')
+//      string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
+//   }
+//   environment {
+//     EMAIL_RECIPIENTS = 'nasruddinkhan44@gmaiil.com'
+//   }
+//   options {
+//     skipStagesAfterUnstable()
+//     disableConcurrentBuilds()
+//   }
+//   stages {
+//     stage('Clean') {
+//       steps {
+//         echo 'Clean..'
+//         bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
+//       }
+//     }
+//     stage('Unit Test') {
+//       steps {
+//         echo 'Testing..'
+//         bat "mvn test -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+//
+//       }
+//     }
+//     stage('Package stage') {
+//       steps {
+//         echo 'Deploying....'
+//         bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+//       }
+//     }
+// //     stage('result') {
+// //       steps {
+// //         input('Do you want capture result....?')
+// //         junit "target/surefire-reports/**/*.xml"
+// //         archive 'target/*.jar'
+// //       }
+// //     }
+//     stage('SonarQube') {
+//       steps {
+//         echo "Code Quality"
+//         withSonarQubeEnv("SonarQube") {
+//          echo "Code Quality SonarQube"
+//          if(params.SKIP_TESTS){
+//             echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
+//          }else{
+//             bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+//          }
+//         }
+//       }
+//     }
+//   stage('Docker Build') {
+//       agent any
+//       steps {
+//         def imageName = bat script: 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}', returnStdout: true
+//         echo 'docker image cmd ${imageName}'
+//         bat 'docker build -t ${imageName} .'
+//        // bat 'docker build -t nasruddin/locator-service:latest .'
+//       }
+//     }
+//   }
+// }
