@@ -1,11 +1,8 @@
 // Declarative //
 pipeline {
     agent any
-    tools{
-        maven: 'Maven'
-    }
     parameters {
-        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com')
 
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
 
@@ -18,7 +15,7 @@ pipeline {
     stages {
         stage('Example') {
             steps {
-                echo "Hello ${params.PERSON}"
+                echo "Hello ${params.HOST}"
 
                 echo "Biography: ${params.BIOGRAPHY}"
 
