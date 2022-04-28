@@ -18,14 +18,6 @@ pipeline {
         stage('Example') {
             steps {
                 echo "Hello ${params.HOST}"
-
-                echo "Biography: ${params.BIOGRAPHY}"
-
-                echo "Toggle: ${params.TOGGLE}"
-
-                echo "Choice: ${params.CHOICE}"
-
-                echo "Password: ${params.PASSWORD}"
             }
         }
     }
