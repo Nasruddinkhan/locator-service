@@ -38,10 +38,12 @@ pipeline {
                 echo "Code Quality"
                 withSonarQubeEnv("SonarQube") {
                     echo "Code Quality SonarQube"
-                    if(params.SKIP_TESTS){
-                        echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
-                    }else{
-                        bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+                    script {
+                        if(params.SKIP_TESTS){
+                            echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
+                        }else{
+                            bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+                        }
                     }
                 }
             }
