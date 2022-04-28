@@ -8,7 +8,7 @@ pipeline {
 
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
 
-        choice(name: 'NAMESPACE', choice: ['nasruddinkhan786-dev'], description:'openshift namespace')
+        choice(name: 'NAMESPACE', choices: ['nasruddinkhan786-dev'], description:'openshift namespace')
 
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
@@ -21,7 +21,7 @@ pipeline {
 
                 echo "Toggle: ${params.TOGGLE}"
 
-                echo "Choice: ${params.NAMESPACE}"
+                echo "Choice: ${params.CHOICE}"
 
                 echo "Password: ${params.PASSWORD}"
             }
