@@ -3,14 +3,16 @@ pipeline {
     agent any
     parameters {
         string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com')
-
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
         choice(name: 'NAMESPACE', choices: ['nasruddinkhan786-dev'], description:'openshift namespace')
-
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+        choice(name: 'DOCKER_REGISTRY', choices:['https://hub.docker.com/', description: 'docker registry'])
+        choice(name: 'SONAR', choices:['http://localhost:9000'], description: 'SonarQube URLS')
+        string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
+    }
+    options {
+        skipStagesAfterUnstable()
+        disableConcurrentBuilds()
     }
     stages {
         stage('Example') {
