@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com')
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+        booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
         choice(name: 'NAMESPACE', choices: ['nasruddinkhan786-dev'], description:'openshift namespace')
         choice(name: 'DOCKER_REGISTRY', choices:['https://hub.docker.com'], description: 'docker registry')
         choice(name: 'SONAR', choices:['http://localhost:9000'], description: 'SonarQube URLS')
