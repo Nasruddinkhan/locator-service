@@ -5,10 +5,10 @@ pipeline {
   parameters{
      string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com',
      description: 'Ingress host')
-     choice(name: 'NAMESPACE', choice: ['nasruddinkhan786-dev'], description:'openshift namespace')
-     choice(name: 'DOCKER_REGISTRY', choice:['https://hub.docker.com'], description: 'docker registry')
+     choices(name: 'NAMESPACE', choice: ['nasruddinkhan786-dev'], description:'openshift namespace')
+     choices(name: 'DOCKER_REGISTRY', choice:['https://hub.docker.com'], description: 'docker registry')
      booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
-     choice(name: 'SONAR', choice:['http://localhost:9000'], description: 'SonarQube URLS')
+     choices(name: 'SONAR', choice:['http://localhost:9000'], description: 'SonarQube URLS')
      string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
   }
   environment {
