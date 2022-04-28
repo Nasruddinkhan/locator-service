@@ -48,8 +48,6 @@ pipeline {
     stage('SonarQube') {
       steps {
         echo "Code Quality"
-
-         echo "Code Quality SonarQube"
          if(params.SKIP_TESTS){
             echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
          }else{
@@ -58,7 +56,6 @@ pipeline {
           }
          }
         }
-      }
     }
   stage('Docker Build') {
       agent any
