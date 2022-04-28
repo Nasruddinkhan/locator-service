@@ -15,9 +15,10 @@ pipeline {
         disableConcurrentBuilds()
     }
     stages {
-        stage('Example') {
+        stage('Clean') {
             steps {
-                echo "Hello ${params.HOST}"
+                echo "Clean"
+                bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
             }
         }
     }
