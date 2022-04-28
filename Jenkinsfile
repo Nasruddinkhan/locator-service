@@ -52,7 +52,7 @@ pipeline {
             agent any
             steps {
                 echo 'docker image cmd ${DOCKER_REGISTRY}'
-                bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}'
+                bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Dbuild.number=${BUILD_NUMBER}'
                 script{
                     imageName = bat(script: 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}', returnStdout: true)
                 }
