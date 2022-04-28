@@ -1,9 +1,7 @@
 // Declarative //
 pipeline {
   agent any
-  tools{
-    maven: 'Maven'
-  }
+
   parameters{
      string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com',
      description: 'Ingress host')
