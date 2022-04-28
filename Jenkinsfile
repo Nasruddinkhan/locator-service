@@ -21,6 +21,18 @@ pipeline {
                 bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
             }
         }
+        stage('Unit Test') {
+            steps {
+                echo 'Testing..'
+                bat "mvn test -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+            }
+         }
+        stage('Package stage') {
+            steps {
+                echo 'Package....'
+                bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+            }
+        }
     }
 }
 // pipeline {
