@@ -52,16 +52,12 @@ pipeline {
             agent any
             steps {
                 echo 'docker image cmd ${DOCKER_REGISTRY}'
-                script{
-                    def imageName = bat : 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}'
-                    bat 'docker build -t ${imageName} .'
-
-                }
+                def imageName = 'bat mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}'
 //                 def imageName = bat script: 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}', returnStdout: true
 //                 echo 'docker image cmd ${imageName}'
 //                 bat 'docker build -t ${imageName} .'
             // bat 'docker build -t nasruddin/locator-service:latest .'
-//                 bat 'docker build -t ${imageName} .'
+                bat 'docker build -t ${imageName} .'
             }
         }
     }
