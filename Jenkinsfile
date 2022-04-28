@@ -59,6 +59,7 @@ pipeline {
 //                 echo 'docker image cmd ${imageName}'
 //                 bat 'docker build -t ${imageName} .'
             // bat 'docker build -t nasruddin/locator-service:latest .'
+                echo '${imageName}'
                 bat 'docker build -t ${imageName} .'
             }
         }
