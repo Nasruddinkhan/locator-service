@@ -19,7 +19,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
-        <docker.registry>https://hub.docker.com/</docker.registry>
+        <docker.registry>https://hub.docker.com</docker.registry>
         <sonar.projectKey>com.mypractice-${project.artifactId}</sonar.projectKey>
         <sonar.projectName>com.mypractice-${project.artifactId}</sonar.projectName>
         <sonar.sources>src/main/java</sonar.sources>
@@ -54,6 +54,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

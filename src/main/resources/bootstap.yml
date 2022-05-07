@@ -1,5 +1,12 @@
 spring:
   cloud:
+    consul:
+      discovery:
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+      config:
+        enabled: true
+      host: localhost
+      port: 8500
     kubernets:
       config:
         name: generic-config
