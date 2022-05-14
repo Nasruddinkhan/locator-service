@@ -6,19 +6,20 @@ pipeline {
   }
   parameters{
       booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
+      string(name: 'SONAR', defaultValue:'http://localhost:9000', description: 'SonarQube URLS')
+          string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
     }
   stages {
     stage('Clean') {
       steps {
         echo 'Clean..'
-        bat "mvn clean"
-
+        bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
       }
     }
     stage('Test') {
       steps {
         echo 'Testing..'
-        bat "mvn test"
+        bat "mvn test -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
       }
     }
     stage('package stage') {
@@ -35,13 +36,16 @@ pipeline {
       }
     }
     stage('Code Quality') {
-      steps {
-        echo "Code Quality"
-        withSonarQubeEnv("SonarQube") {
-         echo "Code Quality SonarQube"
-          bat "mvn sonar:sonar -Dsonar.login=f547ea1989c34b5b223573728a349730d78e40af  -Dsonar.coverage.jacoco.xmlReportPaths=target/surefire-reports/**/*.xml"
-        }
-      }
+       steps {
+              echo "Code Quality"
+               if(params.SKIP_TESTS){
+                  echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
+               }else{
+               withSonarQubeEnv("SonarQube") {
+                  bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+                }
+               }
+              }
     }
   stage('Docker Build') {
       agent any
