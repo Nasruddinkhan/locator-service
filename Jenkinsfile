@@ -4,6 +4,9 @@ pipeline {
   environment {
     EMAIL_RECIPIENTS = 'nasruddinkhan44@gmaiil.com'
   }
+  parameters{
+      booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
+    }
   stages {
     stage('Clean') {
       steps {
@@ -21,7 +24,7 @@ pipeline {
     stage('package stage') {
       steps {
         echo 'Deploying....'
-        bat "mvn package"
+        bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
       }
     }
     stage('result') {
