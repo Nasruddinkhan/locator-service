@@ -4,6 +4,7 @@ import com.mypractice.iban.IbanException;
 import com.mypractice.model.error.ErrorDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Locale;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @Qualifier
     private final MessageSource messageSource;
 
     @Autowired

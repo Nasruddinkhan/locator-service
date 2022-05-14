@@ -14,6 +14,24 @@ logging:
       mypractice: INFO
 
 
+#resilience4j.circuitbreaker:
+#  configs:
+#    default:
+#      slidingWindowSize: 100
+#      permittedNumberOfCallsInHalfOpenState: 10
+#      waitDurationInOpenState: 10000
+#      failureRateThreshold: 60
+#      eventConsumerBufferSize: 10
+#      registerHealthIndicator: true
+#    someShared:
+#      slidingWindowSize: 50
+#      permittedNumberOfCallsInHalfOpenState: 10
+#  instances:
+#    backendA:
+#      baseConfig: default
+#      waitDurationInOpenState: 5000
+#    backendB:
+#      baseConfig: someShared
 
 spring:
   profiles:
@@ -43,10 +61,14 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: method
 management:
+  server:
+    servlet:
+      context-path: /locator-service/api/v1
   endpoints:
     web:
       exposure:
-        include: info,health,metrics,prometheusm,refresh
+        include: info,health,metrics,prometheus,refresh
+    base-path: /locator-service/api/v1
   endpoint:
     info:
       enabled: true
@@ -58,6 +80,7 @@ management:
       enabled: true
     health:
       enabled: true
+      show-details: always
   metrics:
     tags:
       instance: dev
@@ -65,3 +88,18 @@ management:
     export:
       prometheus:
         enabled: true
+  health:
+    circuitbreakers:
+      enabled: true
+    ratelimiters:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+  ratelimiter:
+    configs:
+      instances:
+        registerHealthIndicator: true
