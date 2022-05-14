@@ -50,7 +50,7 @@ pipeline {
   stage('Docker Build') {
       agent any
       steps {
-        bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=https://hub.docker.com -Djkube.namespace=nasruddinkhan786-dev -Dbuild.number=${BUILD_NUMBER}'
+        bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=https://hub.docker.com -Djkube.namespace=nasruddinkhan -Dbuild.number=${BUILD_NUMBER}'
         //bat 'docker build -t nasruddin/locator-service:latest .'
       }
     }
