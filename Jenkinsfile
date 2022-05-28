@@ -38,13 +38,13 @@ pipeline {
     stage('Code Quality') {
        steps {
               echo "Code Quality"
-               if(params.SKIP_TESTS){
-                  echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
-               }else{
-               withSonarQubeEnv("SonarQube") {
-                  bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
-                }
-               }
+//                if(params.SKIP_TESTS){
+//                   echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
+//                }else{
+//                withSonarQubeEnv("SonarQube") {
+//                   bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+//                 }
+//                }
               }
     }
   stage('Docker Build') {
