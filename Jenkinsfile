@@ -7,7 +7,7 @@ pipeline {
   parameters{
       booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
       string(name: 'SONAR', defaultValue:'http://localhost:9000', description: 'SonarQube URLS')
-          string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af', description='SONAR TOKEN')
+      string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af',description: 'Do you want to skip the test')
     }
   stages {
     stage('Clean') {
