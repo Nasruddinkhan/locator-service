@@ -1,58 +1,66 @@
-// Declarative //
 pipeline {
-  agent any
-  environment {
-    EMAIL_RECIPIENTS = 'nasruddinkhan44@gmaiil.com'
-  }
-  parameters{
-      booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
-      string(name: 'SONAR', defaultValue:'http://localhost:9000', description: 'SonarQube URLS')
-      string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af',description: 'Do you want to skip the test')
+    agent any
+    parameters {
+        string(name: 'HOST', defaultValue: 'https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com')
+        booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Do you want to skip the test')
+        choice(name: 'NAMESPACE', choices: ['locater-service'], description:'openshift namespace')
+        choice(name: 'DOCKER_REGISTRY', choices:['nasruddinkhan'],description: 'docker registry')
+        choice(name: 'SONAR', choices:['http://localhost:9000'], description: 'SonarQube URLS')
+        string(name: 'SONAR_TOKEN', defaultValue: 'f547ea1989c34b5b223573728a349730d78e40af')
     }
-  stages {
-    stage('Clean') {
-      steps {
-        echo 'Clean..'
-        bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
-      }
+    options {
+        skipStagesAfterUnstable()
+        disableConcurrentBuilds()
     }
-    stage('Test') {
-      steps {
-        echo 'Testing..'
-        bat "mvn test -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
-      }
+    stages {
+        stage('Clean') {
+            steps {
+                echo "Clean"
+                bat "mvn clean post-clean -Dbuild.number=${BUILD_NUMBER}"
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                echo 'Testing..'
+                bat "mvn test -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+            }
+         }
+        stage('Package stage') {
+            steps {
+                echo 'Package....'
+                bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${params.SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
+            }
+        }
+        stage('SonarQube') {
+            steps {
+                echo "Code Quality"
+                withSonarQubeEnv("SonarQube") {
+                    echo "Code Quality SonarQube"
+                    script {
+                        if(params.SKIP_TESTS){
+                            echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
+                        }else{
+                            bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            agent any
+            steps {
+                bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Dbuild.number=${BUILD_NUMBER}'
+                script{
+                def imageName = bat script: 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}', returnStdout: true
+                    //bat(script: 'docker build -t ${imageName} .')
+                echo '${imageName}'
+                echo 'docker image cmd ${DOCKER_REGISTRY}'
+                bat 'docker build -t ${imageName} .'
+                bat 'docker push -t ${imageName}'
+                }
+
+            }
+        }
     }
-    stage('package stage') {
-      steps {
-        echo 'Deploying....'
-        bat "mvn package -Dskip.surefire.tests -Dmaven.test.skip=${SKIP_TESTS} -Dbuild.number=${BUILD_NUMBER} -Popenshift"
-      }
-    }
-    stage('result') {
-      steps {
-        input('Do you want capture result....?')
-        junit "target/surefire-reports/**/*.xml"
-        archive 'target/*.jar'
-      }
-    }
-    stage('Code Quality') {
-       steps {
-              echo "Code Quality"
-//                if(params.SKIP_TESTS){
-//                   echo "Test case are skip $SKIP_TESTS, so not showing the changes from sonar"
-//                }else{
-//                withSonarQubeEnv("SonarQube") {
-//                   bat "mvn sonar:sonar -Dsonar.host.url=${SONAR} -Dbuild.number=${BUILD_NUMBER} -Dsonar.login=${SONAR_TOKEN} -Popenshift"
-//                 }
-//                }
-              }
-    }
-  stage('Docker Build') {
-      agent any
-      steps {
-        bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=https://hub.docker.com -Djkube.namespace=nasruddinkhan -Dbuild.number=${BUILD_NUMBER}'
-        //bat 'docker build -t nasruddin/locator-service:latest .'
-      }
-    }
-  }
 }
