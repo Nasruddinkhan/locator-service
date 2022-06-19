@@ -50,8 +50,9 @@ pipeline {
         stage('Docker Build') {
             agent any
             steps {
-                bat 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Dbuild.number=${BUILD_NUMBER}'
                 script{
+                RESULT = $('mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}')
+                echo $RESULT
                 def imageName = bat script: 'mvn help:evaluate -Dexpression=jkube.generator.name -q -DforceStdout -Ddocker.registry=${DOCKER_REGISTRY} -Djkube.namespace=${NAMESPACE} -Dbuild.number=${BUILD_NUMBER}', returnStdout: true
                 echo "You can also use \${imageName} -> ${BUILD_NUMBER}"
 
